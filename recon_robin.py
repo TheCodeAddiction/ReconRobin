@@ -3,8 +3,12 @@ from helper import file_helper
 
 
 def main():
-    target_domain = input("Give me a domain name:\n")
-    crt.get_all_domains(crt.create_url(target_domain))
+    target_list = input("Give me a list of domains name:\n")
+    target_domains = target_list.split(",")
+    for domain in target_domains:
+        crt.get_all_domains(crt.create_url(domain),domain)
+
+
 
 if __name__ == '__main__':
     main()
