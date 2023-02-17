@@ -10,11 +10,9 @@ def create_url(domain):
 
 
 def get_all_domains(url):
-    animation.start_loading("Grabbing domains from crt.sh")
     request = requests.get(url)
     network_helper.check_for_rate_limit(request.status_code,"crt.sh")
     data = request.json()
     unique_domains = data_helper.remove_duplicates_from_list(regex_helper.grab_common_name_from_crt(data))
     file_helper.write_list_to_file("crt_domains.txt", unique_domains, "writing crt.sh domains to file")
-    animation.stop_loading()
     return unique_domains

@@ -2,7 +2,11 @@ import threading
 import time
 
 
-class VisualHelper:
+def print_information(message):
+    print("==== " + message + " ====")
+
+
+class VisualHelper: # Currently hangs the script
     show_loading_bar = True
 
     def play_loading_animation(self, message):
@@ -20,6 +24,3 @@ class VisualHelper:
     def stop_loading(self):
         self.show_loading_bar = False
         print('\r' + 'Done!')
-
-    def print_information(self, message):
-        print("==== " + message + " ====")
