@@ -1,6 +1,4 @@
 import re
-from helper import data_helper
-
 
 def verify_url(url):
     url_regex = re.compile(
