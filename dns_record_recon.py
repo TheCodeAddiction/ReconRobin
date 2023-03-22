@@ -1,11 +1,19 @@
+import argparse
 import subprocess
+
+# Set up argument parser
+parser = argparse.ArgumentParser(description="Run dig command on a list of domains and subdomains for various DNS record types.")
+parser.add_argument("--ip", type=str, help="Specify the IP address of the DNS server to query.")
+args = parser.parse_args()
 
 # List of DNS record types to query
 dns_record_types = ["A", "AAAA", "CNAME", "MX", "NS", "PTR", "SOA", "SRV", "TXT"]
 
 # Function to run dig command
-def run_dig(domain, record_type):
+def run_dig(domain, record_type, ip=None):
     command = ["dig", domain, record_type]
+    if ip:
+        command.append(f"@{ip}")
     result = subprocess.run(command, capture_output=True, text=True)
     return result.stdout
 
@@ -25,7 +33,7 @@ with open("soa_records.txt", "w") as soa_file, \
     # Run dig command for each domain and DNS record type
     for domain in domains:
         for record_type in dns_record_types:
-            dig_output = run_dig(domain, record_type)
+            dig_output = run_dig(domain, record_type, ip=args.ip)
 
             # Check if the ANSWER count is greater than zero
             answer_count = 0
