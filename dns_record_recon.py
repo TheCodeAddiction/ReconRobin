@@ -11,7 +11,7 @@ dns_record_types = ["A", "AAAA", "CNAME", "MX", "NS", "PTR", "SOA", "SRV", "TXT"
 
 # Function to run dig command
 def run_dig(domain, record_type, ip=None):
-    command = ["dig", domain, record_type]
+    command = ["dig",record_type,domain]
     if ip:
         command.append(f"@{ip}")
     result = subprocess.run(command, capture_output=True, text=True)
