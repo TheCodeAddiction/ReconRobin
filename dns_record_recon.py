@@ -51,21 +51,21 @@ with open("soa_records.txt", "w") as soa_file, \
                 else:
                     valid_file.write(dig_output)
                     valid_file.write("\n")
+                    # Get and write the ANSWER SECTION part to pretty_output.txt
+                    answer_section = False
+                    for line in dig_output.splitlines():
+                        if line.startswith(";; ANSWER SECTION:"):
+                            answer_section = True
+                            continue
+                        elif line.startswith(";; Query time:"):
+                            answer_section = False
+                            pretty_file.write("\n")
+                            break
+
+                        if answer_section:
+                            pretty_file.write(line.strip())
+                            pretty_file.write("\n")
             else:
                 false_file.write(dig_output)
                 false_file.write("\n")
 
-                # Get and write the ANSWER SECTION part to pretty_output.txt
-                answer_section = False
-                for line in dig_output.splitlines():
-                    if line.startswith(";; ANSWER SECTION:"):
-                        answer_section = True
-                        continue
-                    elif line.startswith(";; Query time:"):
-                        answer_section = False
-                        pretty_file.write("\n")
-                        break
-
-                    if answer_section:
-                        pretty_file.write(line.strip())
-                        pretty_file.write("\n")
