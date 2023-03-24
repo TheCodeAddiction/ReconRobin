@@ -28,7 +28,8 @@ domains = [domain.strip() for domain in domains]
 # Open output files
 with open("soa_records.txt", "w") as soa_file, \
      open("valid_records.txt", "w") as valid_file, \
-     open("pretty_output.txt", "w") as pretty_file:
+     open("pretty_output.txt", "w") as pretty_file, \
+     open("false_output.txt","w") as false_file:
 
     # Run dig command for each domain and DNS record type
     for domain in domains:
@@ -50,6 +51,9 @@ with open("soa_records.txt", "w") as soa_file, \
                 else:
                     valid_file.write(dig_output)
                     valid_file.write("\n")
+            else:
+                false_file.write(dig_output)
+                false_file.write("\n")
 
                 # Get and write the ANSWER SECTION part to pretty_output.txt
                 answer_section = False
