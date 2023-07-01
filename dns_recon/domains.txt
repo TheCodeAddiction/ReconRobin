@@ -1,0 +1,12 @@
+inlanefreight.htb
+www.inlanefreight.htb
+blog.inlanefreight.htb
+my.inlanefreight.htb
+support.inlanefreight.htb
+ns1.inlanefreight.htb
+customer.inlanefreight.htb
+ns2.inlanefreight.htb
+ns3.inlanefreight.htb
+mail1.inlanefreight.htb
+admin.inlanefreight.htb
+root.inlanefreight.htb
