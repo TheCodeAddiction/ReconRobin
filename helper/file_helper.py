@@ -1,3 +1,5 @@
+from itertools import chain
+
 from . import visual_helper
 import os
 
@@ -11,3 +13,12 @@ def write_list_to_file(filename, array, message):
         for data in array:
             f.write(data + "\n")
         f.close()
+def create_domain_super_list(filename, domains, message):
+    print(message)
+    file_path = os.path.join("Output", filename)
+    with open(file_path,"w") as f:
+        merged = list(chain(*domains)) # merges all array togheter
+        merged_no_duplicates = list(dict.fromkeys(merged)) # removes duplicates
+        for domain in merged_no_duplicates:
+            f.write(domain+ "\n")
+    return
