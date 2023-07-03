@@ -28,4 +28,3 @@ def get_all_subdomains(domain):
     results_no_dup = list(dict.fromkeys(results))
     file_helper.write_list_to_file(domain+"_virustotal_subdomains.txt", results_no_dup, "writing virustotal subdomains to file")
     return results_no_dup
-
