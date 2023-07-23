@@ -25,10 +25,10 @@ The `secrets.json` should be formated like this:
 1. Run recon robin: `python recon_robin.py`
 2. Write all the domains you want to recon in a comma seperated list, for example: `github.com, gitlab.com, bitbucket.com`
 3. Click enter, sit back and watch recon robin grab the domains
+![img.png](img.png)
 
 ## Run only DNS recon
 1. Run recon robin: `python recon_robin.py --dns-only`
 2. You can optionally add a `--ip <ip address>` to spesicy what dns server you want to query
 2. Write all the domains you want to recon in a comma seperated list, for example: `github.com, gitlab.com, bitbucket.com`
 3. Click enter, sit back and watch recon robin grab the domains
-![img.png](img.png)
