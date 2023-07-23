@@ -2,9 +2,8 @@ from crt import crt
 from VirusTotal import virustotal as vt
 from helper import file_helper
 from dns_recon import dns
-def main():
-    target_list = input("Give me a list of domains name:\n")
-    target_domains = target_list.split(",")
+import argparse
+def main(target_domains):
     for domain in target_domains:
         crt_domains = crt.get_all_domains(crt.create_url(domain),domain)
         vt_domains = vt.get_all_subdomains(domain.strip())
@@ -16,5 +15,22 @@ def main():
 
 
 
+def dns_recon_only(target_domains, ip=None):
+    for domain in target_domains:
+        dns.find_all_domains_dns(domain,ip)
+
 if __name__ == '__main__':
-    main()
+    target_list = input("Give me a list of domains name:\n")
+    target_domains = target_list.split(",")
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--ip', type=str, help='IP address of a spesific DNS server')
+    parser.add_argument('--dns-only', action='store_true', help='Will only do DNS recon.')
+    args = parser.parse_args()
+    dns_server_ip = args.ip
+
+    if args.dns_only:
+        dns_recon_only(target_domains, dns_server_ip)
+    else:
+        main(target_domains)
