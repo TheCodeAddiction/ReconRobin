@@ -18,8 +18,5 @@ def create_domain_super_list(filename, domains, message):
     file_path = os.path.join("Output", filename)
     with open(file_path,"w") as f:
         merged_no_duplicates = list(set(domains)) # removes duplicates
-        print("I received all of these domains: ", merged_no_duplicates , "of type: ",type(domains))
         for domain in merged_no_duplicates:
-            print("writing,",domain)
             f.write(domain+ "\n")
-    return
