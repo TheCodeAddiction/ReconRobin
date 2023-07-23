@@ -18,7 +18,7 @@ def find_all_domains_dns(domain, ip=None):
     for array in result_no_dups:
         for data in array:
             one_array_no_dups.append(data)
-    print(one_array_no_dups)
+
     return one_array_no_dups
 
 

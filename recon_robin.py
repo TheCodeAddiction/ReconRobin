@@ -18,8 +18,9 @@ def main(target_domains):
 def dns_recon_only(target_domains, ip=None):
     for domain in target_domains:
         dns_domains = dns.find_all_domains_dns(domain,ip)
-        file_helper.create_domain_super_list(domain + "_all_DNS_results", dns_domains,
-                                             "== Writing DNS results to file ==")
+        print(dns_domains)
+        print(type(dns_domains))
+        file_helper.create_domain_super_list(domain + "_all_DNS_results", dns_domains, "== Writing DNS results to file ==")
 
 
 if __name__ == '__main__':
