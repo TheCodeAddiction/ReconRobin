@@ -9,7 +9,6 @@ animation = visual_helper
 def write_list_to_file(filename, array, message, domain_name):
     os.makedirs("Output/" + domain_name, exist_ok=True)
     file_path = os.path.join("Output/"+domain_name, filename)
-    print(file_path)
     with open(file_path, "w") as f:
         animation.print_information(message)
         for data in array:
