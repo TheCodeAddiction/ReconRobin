@@ -3,6 +3,8 @@ from VirusTotal import virustotal as vt
 from helper import file_helper
 from dns_recon import dns
 import argparse
+from Shodan import Shodan_helper
+
 def main(target_domains):
     for domain in target_domains:
         crt_domains = crt.get_all_domains(crt.create_url(domain),domain)
@@ -10,17 +12,15 @@ def main(target_domains):
         dns_domains = dns.find_all_domains_dns(domain.strip())
         all_domains = [crt_domains, vt_domains,dns_domains]
         all_domains_no_dns = [crt_domains, vt_domains]
-        file_helper.create_domain_super_list(domain+"_all_domains_including_DNS",all_domains,"== creating super list ==")
-        file_helper.create_domain_super_list(domain+"_all_domains_no_dns",all_domains_no_dns,"== creating super list no DNS ==")
+        file_helper.create_domain_super_list(domain+"_all_domains_including_DNS",all_domains,"== creating super list ==",domain)
+        file_helper.create_domain_super_list(domain+"_all_domains_no_dns",all_domains_no_dns,"== creating super list no DNS ==",domain)
 
 
 
 def dns_recon_only(target_domains, ip=None):
     for domain in target_domains:
         dns_domains = dns.find_all_domains_dns(domain,ip)
-        print(dns_domains)
-        print(type(dns_domains))
-        file_helper.create_domain_super_list(domain + "_all_DNS_results", dns_domains, "== Writing DNS results to file ==")
+        file_helper.create_domain_super_list(domain + "_all_DNS_results", dns_domains, "== Writing DNS results to file ==",domain)
 
 
 if __name__ == '__main__':

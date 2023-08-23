@@ -26,5 +26,5 @@ def get_all_subdomains(domain):
     for item in data:
         results.append(item["id"])
     results_no_dup = list(dict.fromkeys(results))
-    file_helper.write_list_to_file(domain+"_virustotal_subdomains.txt", results_no_dup, "writing virustotal subdomains to file")
+    file_helper.write_list_to_file(domain+"_virustotal_subdomains.txt", results_no_dup, "writing virustotal subdomains to file",domain)
     return results_no_dup
