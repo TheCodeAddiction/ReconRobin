@@ -12,7 +12,7 @@ def get_ip_of_domain(domain):
         if e.errno == -2:
             # This specific error means the domain could not be resolved.
             # You can print an error message or just pass to ignore it.
-            return "no ip found"
+            return ""
         else:
             # Handle other socket.gaierror possibilities here.
-            return "no ip found"
+            return ""

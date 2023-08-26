@@ -1,3 +1,7 @@
+from Shodan import Shodan_helper
+from helper import network_helper
+
+
 def write_to_markdown(filename, content): # just example
     with open(filename, 'w') as file:
         file.write(content)
@@ -40,8 +44,22 @@ def generate_markdown_report(main_domain, new_domains, removed_domains, subdomai
         data_line = '| ' + ' | '.join(row) + ' |'
         report.append(data_line)
 
-    write_to_markdown("report.md", '\n'.join(report))
+    write_to_markdown("Output/"+main_domain+"/"+main_domain+"_report.md", '\n'.join(report))
     return '\n'.join(report)
+
+def generate_data_column_of_domain(domain, is_new, is_removed, is_old):
+    shodan_ports = Shodan_helper.get_ports_for_specific_domain(domain)
+    shodan_ips = Shodan_helper.get_ips_for_specific_domain(domain)
+    ips = " ".join(map(str, shodan_ips))
+    ports = " ".join(map(str, shodan_ports))
+    #domain_ip = network_helper.get_ip_of_domain(subdomain) # for simplcity we ignore this for now
+    #shodan_ips.add(domain_ip)
+    if not ips:
+       return False
+    if not ports:
+        ports = "No Ports Found"
+    return [domain, ips, ports, is_new, is_removed, is_old]
+
 
 
 # Example usage

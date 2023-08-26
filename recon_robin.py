@@ -11,28 +11,33 @@ def main(target_domains):
         crt_domains = crt.get_all_domains(crt.create_url(domain),domain)
         vt_domains = vt.get_all_subdomains(domain.strip())
         dns_domains = dns.find_all_domains_dns(domain.strip())
-        all_domains = [crt_domains, vt_domains,dns_domains]
+        all_domains = [crt_domains, vt_domains,dns_domains] # all subdomains it could find.
         all_domains_no_dns = [crt_domains, vt_domains]
         file_helper.create_domain_super_list(domain+"_all_domains_including_DNS",all_domains,"== creating super list ==",domain)
         file_helper.create_domain_super_list(domain+"_all_domains_no_dns",all_domains_no_dns,"== creating super list no DNS ==",domain)
 
+
         # Report creation section
         reports = []
-        ports = "22,21,443,80" # dummy data
         is_new = "0" # dummy data
         is_removed = "0" # dummy data
         is_old = "1" # dummy data
 
-        flat_array_all_domains = [] # a list of every domain in one array instead of many small arrays.
+        flat_array_all_domains = set() # a list of every domain in a set
         for array in all_domains:
             for item in array:
-                flat_array_all_domains.append(item)
+                flat_array_all_domains.add(item)
 
-        unique_flat_array_all_domains = list(set(flat_array_all_domains))
-        for subdomain in unique_flat_array_all_domains:
-            domain_ip = network_helper.get_ip_of_domain(subdomain)
-            report_overview_data = [subdomain, domain_ip, ports, is_new, is_removed, is_old]
-            reports.append(report_overview_data)
+        amount_of_domains = len(flat_array_all_domains)
+        for subdomain in flat_array_all_domains: # creates a data column for each domain that we know of
+            print("Amount of requests left: ",str(amount_of_domains)+"/"+str(len(flat_array_all_domains)))
+            amount_of_domains = amount_of_domains-1
+            data = ReportGenerator.generate_data_column_of_domain(subdomain,is_new,is_removed,is_old)
+            if not data: # we cant find an ip for the target
+                print("Skipping", subdomain, "no IP found - host is not online")
+                pass
+            else:
+                reports.append(data)
 
         ReportGenerator.generate_markdown_report(domain,["to be added"],["to be added"],reports)
 
