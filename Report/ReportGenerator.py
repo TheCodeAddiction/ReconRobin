@@ -1,14 +1,19 @@
 from Shodan import Shodan_helper
+from Shodan.Shodan_helper import get_all_shodan_data_from_domain
 from helper import network_helper
 
 
-def write_to_markdown(filename, content): # just example
+def write_to_markdown(filename, content):  # just example
     with open(filename, 'w') as file:
         file.write(content)
-def read_subdomains(domain_list): # just example
+
+
+def read_subdomains(domain_list):  # just example
     with open(domain_list, 'r') as file:
         contents = file.read()
         print(contents)
+
+
 def generate_markdown_report(main_domain, new_domains, removed_domains, subdomain_data):
     report = []
 
@@ -33,44 +38,33 @@ def generate_markdown_report(main_domain, new_domains, removed_domains, subdomai
 
     # Add subdomain table header
     report.append("## All Subdomains:")
-    headers = ["domain name", "ip", "ports", "Is new", "Is removed", "Old domain"]
+    headers = ["domain name", "ip", "ports", "Services", "Is new", "Is removed", "Old domain"]
     header_line = '| ' + ' | '.join(headers) + ' |'
-    separator_line = '| ' + ' | '.join(['-'*len(header) for header in headers]) + ' |'
+    separator_line = '| ' + ' | '.join(['-' * len(header) for header in headers]) + ' |'
     report.append(header_line)
     report.append(separator_line)
 
     # Add subdomain table data
-    for row in subdomain_data:
+    for row in subdomain_data:  # to add data, just add another field to the subdomain data
         data_line = '| ' + ' | '.join(row) + ' |'
         report.append(data_line)
 
-    write_to_markdown("Output/"+main_domain+"/"+main_domain+"_report.md", '\n'.join(report))
+    write_to_markdown("Output/" + main_domain + "/" + main_domain + "_report.md", '\n'.join(report))
     return '\n'.join(report)
 
+
 def generate_data_column_of_domain(domain, is_new, is_removed, is_old):
-    shodan_ports = Shodan_helper.get_ports_for_specific_domain(domain)
-    shodan_ips = Shodan_helper.get_ips_for_specific_domain(domain)
+    shodan_data = get_all_shodan_data_from_domain(domain)
+    shodan_ports = shodan_data.ports
+    shodan_ips = shodan_data.ips
+    shodan_services = shodan_data.services
     ips = " ".join(map(str, shodan_ips))
     ports = " ".join(map(str, shodan_ports))
-    #domain_ip = network_helper.get_ip_of_domain(subdomain) # for simplcity we ignore this for now
-    #shodan_ips.add(domain_ip)
+    services = " ".join(map(str, shodan_services))
+    # domain_ip = network_helper.get_ip_of_domain(subdomain) # for simplcity we ignore this for now
+    # shodan_ips.add(domain_ip)
     if not ips:
-       return False
+        return False
     if not ports:
         ports = "No Ports Found"
-    return [domain, ips, ports, is_new, is_removed, is_old]
-
-
-
-# Example usage
-main_domain = "pst.no"
-new_domains = ["vpn.pst.no"]
-removed_domains = ["api.pst.no"]
-subdomain_data = [
-    ["vpn.pst.no", "68.12.1.2", "22, 3389, 21", "1", "0", "0"],
-    ["api.pst.no", "192.168.1.1", "80, 443", "0", "1", "0"],
-    ["pst.no", "10.0.0.1", "25, 80, 443, 8080", "0", "0", "1"]
-]
-
-
-
+    return [domain, ips, ports, services, is_new, is_removed, is_old]
