@@ -15,9 +15,9 @@ To use this, you need to do the following:
 ## Virustotal API key
 The `secrets.json` should be formated like this:
 ```
-{
-  "virus_total_api_key": "your_api_key"
-}
+  "virus_total_api_key": "your api key here",
+  "shodan_api_key":"your api key here",
+  "censys_api_key": "your api key here"
 ```
 
 # How-to example
