@@ -26,12 +26,12 @@ def get_all_shodan_data_from_domain(domain):
             ports = shodan_get_all_ports_from_ip(ip) # we need to see if we can find a way to not make this call as it heavly slows down the program.
             for hostname in hostnames:
                 if hostname.strip() == domain.strip():
+                    all_ips.add(ip)
+                    product = result.get('product', '')
+                    version = result.get('version', '')
+                    all_services.add(f"{product} {version}")
                     for port in ports:
                         all_ports.add(port)
-                        all_ips.add(ip)
-                        product = result.get('product', '')
-                        version = result.get('version', '')
-                        all_services.add(f"{product} {version}")
 
         shodan_data = ShodanData()
         shodan_data.ips = all_ips
@@ -43,7 +43,10 @@ def get_all_shodan_data_from_domain(domain):
 
 def shodan_get_all_ports_from_ip(ip):
     try:
-        return api.host(ip)['ports']
+        host_info = api.host(ip)
+        with open("API.HOST.json", "w") as f:
+            json.dump(host_info, f, indent=4)
+        return host_info['ports']
     except shodan.APIError as e:
         print('Error: {}'.format(e))
 

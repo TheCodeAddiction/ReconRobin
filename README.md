@@ -15,9 +15,12 @@ To use this, you need to do the following:
 ## Virustotal API key
 The `secrets.json` should be formated like this:
 ```
-  "virus_total_api_key": "your api key here",
-  "shodan_api_key":"your api key here",
-  "censys_api_key": "your api key here"
+{
+  "virus_total_api_key": "f5533xxxxxxxxxxxxxxxxxxxxxxxxxx41704",
+  "shodan_api_key":"Lxxxxxxxxxxxxxxxxxxxxxxxx1Zbl9",
+  "censys_api_id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxx",
+  "censys_api_secret": "12BsxxxxxxxxxxxxKOM"
+}
 ```
 
 # How-to example
