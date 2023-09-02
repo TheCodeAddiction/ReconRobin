@@ -10,8 +10,6 @@ from Shodan import Shodan_helper
 
 def main(target_domains):
     for domain in target_domains:
-        Censys_search.search(domain)
-        return
         crt_domains = crt.get_all_domains(crt.create_url(domain), domain)
         vt_domains = vt.get_all_subdomains(domain.strip())
         dns_domains = dns.find_all_domains_dns(domain.strip())

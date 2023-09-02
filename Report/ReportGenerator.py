@@ -1,8 +1,5 @@
-from Shodan import Shodan_helper
 from Shodan.Shodan_helper import get_all_shodan_data_from_domain
-from helper import network_helper
-
-
+from Censys.Censys_search import get_all_censys_data_from_domain
 def write_to_markdown(filename, content):  # just example
     with open(filename, 'w') as file:
         file.write(content)
@@ -58,9 +55,19 @@ def generate_data_column_of_domain(domain, is_new, is_removed, is_old):
     shodan_ports = shodan_data.ports
     shodan_ips = shodan_data.ips
     shodan_services = shodan_data.services
-    ips = " ".join(map(str, shodan_ips))
-    ports = " ".join(map(str, shodan_ports))
-    services = " ".join(map(str, shodan_services))
+
+    censys_data = get_all_censys_data_from_domain(domain)
+    censys_ports = censys_data.ports
+    censys_ips = censys_data.ips
+    censys_services = censys_data.services
+
+    merged_ips = shodan_ips.union(censys_ips)
+    merged_ports = shodan_ports.union(censys_ports)
+    merged_services = shodan_services.union(censys_services)
+
+    ips = ",".join(map(str, merged_ips))
+    ports = ",".join(map(str, merged_ports))
+    services = " \| ".join(map(str, merged_services))
     # domain_ip = network_helper.get_ip_of_domain(subdomain) # for simplcity we ignore this for now
     # shodan_ips.add(domain_ip)
     if not ips:
