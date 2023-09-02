@@ -4,6 +4,7 @@ from helper import file_helper, network_helper
 from dns_recon import dns
 from Report import ReportGenerator
 import argparse
+from Censys import Censys_search
 from Shodan import Shodan_helper
 
 
