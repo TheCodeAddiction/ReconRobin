@@ -62,8 +62,6 @@ def get_ip_by_domain(domain):
         query = censysClient.search("dns.names=" + domain)
         for res in query:
             for data in res:
-
-                print("IP!",data["ip"])
                 ips.add(data["ip"])
         return ips
     except Exception as e:

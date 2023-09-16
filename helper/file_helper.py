@@ -24,3 +24,15 @@ def create_domain_super_list(filename, domains, message,domain_name):
             for domain in all_domains_no_duplicates:
                 f.write(domain+ "\n")
 
+
+def write_report_data_to_file(data):
+    # Open a file in write mode
+    with open('Output/report_data.raw', 'w') as f:
+        # Write the header
+        f.write("Domains | IPs | Ports | Services | Is New | Is Removed | Is Old\n")
+
+        # Write each record to the file
+        for record in data:
+            record = ['None' if not x.strip() else x for x in record] # if the data is empty, it replaces by None for easy parsing later
+            line = ' | '.join(record)
+            f.write(line + '\n')

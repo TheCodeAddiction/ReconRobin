@@ -1,0 +1,10 @@
+Domains | IPs | Ports | Services | Is New | Is Removed | Is Old
+www.test.pst.no | 195.225.15.103,195.225.15.104 | 80,443 | None | 0 | 0 | 1
+admin.pst.no | 195.225.15.106,195.225.15.105 | 80,443 |   \| HTTP F5 BIG-IP LTM  | 0 | 0 | 1
+mx1.fd.dep.no | 91.206.35.62,91.206.35.6,91.206.35.7,91.206.35.73 | 25 | None | 0 | 0 | 1
+www.pst.no | 195.225.15.105 | 80,443 |   \| HTTP Microsoft ASP.NET  \| HTTP F5 BIG-IP LTM  | 0 | 0 | 1
+pst.no | 195.225.15.105 | 80,443 |   \| HTTP Microsoft ASP.NET  \| HTTP F5 BIG-IP LTM  | 0 | 0 | 1
+mx2.fd.dep.no | 91.206.35.62,91.206.35.6,91.206.35.7,91.206.35.73 | 25 | None | 0 | 0 | 1
+test.pst.no | 195.225.15.103,195.225.15.104 | 80,443 |   \| HTTP F5 BIG-IP LTM  | 0 | 0 | 1
+ns02.no.brand.one.com | 185.10.11.12 | 853,53 | None | 0 | 0 | 1
+ns01.no.brand.one.com | 195.206.121.12 | 853,53 | None | 0 | 0 | 1

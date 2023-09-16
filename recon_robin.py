@@ -1,14 +1,13 @@
+from Report.ReportHistory import map_scan_result_to_report_class, compare_new_and_old_scan
 from crt import crt
 from VirusTotal import virustotal as vt
 from helper import file_helper, network_helper
 from dns_recon import dns
 from Report import ReportGenerator
 import argparse
-from Censys import Censys_search
-from Shodan import Shodan_helper
-
 
 def main(target_domains):
+    i = 0
     for domain in target_domains:
         crt_domains = crt.get_all_domains(crt.create_url(domain), domain)
         vt_domains = vt.get_all_subdomains(domain.strip())
@@ -36,12 +35,14 @@ def main(target_domains):
             print("Amount of requests left: ", str(amount_of_domains) + "/" + str(len(flat_array_all_domains)))
             amount_of_domains = amount_of_domains - 1
             data = ReportGenerator.generate_data_column_of_domain(subdomain, is_new, is_removed, is_old)
-            if not data:  # we cant find an ip for the target
+            if not data:
                 print("Skipping", subdomain, "no IP found - host is not online")
                 pass
             else:
                 reports.append(data)
 
+        compare_new_and_old_scan(reports)
+        #file_helper.write_report_data_to_file(reports)
         ReportGenerator.generate_markdown_report(domain, ["to be added"], ["to be added"], reports)
 
 

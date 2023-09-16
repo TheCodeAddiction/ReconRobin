@@ -44,8 +44,6 @@ def get_all_shodan_data_from_domain(domain):
 def shodan_get_all_ports_from_ip(ip):
     try:
         host_info = api.host(ip)
-        with open("API.HOST.json", "w") as f:
-            json.dump(host_info, f, indent=4)
         return host_info['ports']
     except shodan.APIError as e:
         print('Error: {}'.format(e))

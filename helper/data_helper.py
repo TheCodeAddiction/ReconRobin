@@ -13,3 +13,8 @@ def merge_all_data(set1, set2): # merges all data without duplicates
         merged_set.add(data)
     return merged_set
 
+def comma_seperated_string_to_set(string):
+    return set(string.split(','))
+
+def service_string_to_set(string):
+    return set(string.split('\|'))
